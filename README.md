@@ -15,8 +15,13 @@
 - git clone https://github.com/myintwl/pomelo-demo.git
 - cd pomelo-demo 
 
-## Terraform workflow
 
-### please run and test terraform as following workflow command before pushing to git
+### please run fmt and validate to test on local before pushing to git
 - terraform fmt
 - terrform validate 
+
+```
+root@MAX-Lenovo:/mnt/d/pomelo/pomelo-demo# terraform fmt
+root@MAX-Lenovo:/mnt/d/pomelo/pomelo-demo# terraform validate
+Success! The configuration is valid.
+```
