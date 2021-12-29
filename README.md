@@ -16,7 +16,7 @@
 - cd pomelo-demo 
 
 
-### please run fmt and validate to test on local before pushing to git
+### please validate terraform code and push to git if only 'Success' from local validation
 - terraform fmt
 - terrform validate 
 
