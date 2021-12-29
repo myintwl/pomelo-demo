@@ -12,6 +12,8 @@
 ## Terrform setup
 
 ## Git clone
+``` git clone https://github.com/myintwl/pomelo-demo.git
+    cd pomelo-demo ```
 
 ## Terraform workflow
 
