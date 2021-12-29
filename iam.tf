@@ -24,7 +24,7 @@ data "template_file" "gateway_policy" {
   template = file("policies/api-gateway-permission.json")
 
   vars = {
-    sqs_arn   = aws_sqs_queue.queue.arn
+    sqs_arn = aws_sqs_queue.queue.arn
   }
 }
 
@@ -36,8 +36,8 @@ resource "aws_iam_policy" "api_policy" {
 
 
 resource "aws_iam_role_policy_attachment" "api_exec_role" {
-  role       =  aws_iam_role.apiSQS.name
-  policy_arn =  aws_iam_policy.api_policy.arn
+  role       = aws_iam_role.apiSQS.name
+  policy_arn = aws_iam_policy.api_policy.arn
 }
 
 # Add a Lambda permission that allows the specific SQS to invoke it
@@ -46,7 +46,7 @@ data "template_file" "lambda_policy" {
   template = file("policies/lambda-permission.json")
 
   vars = {
-    sqs_arn   = aws_sqs_queue.queue.arn
+    sqs_arn = aws_sqs_queue.queue.arn
   }
 }
 

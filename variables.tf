@@ -1,25 +1,25 @@
 variable "environment" {
-    description = "Env"
-    default     = "dev"
+  description = "Env"
+  default     = "dev"
 }
 
 variable "appname" {
-    description = "Application Name"
-    type        = string
+  description = "Application Name"
+  type        = string
 }
 
 locals {
-    description = "Aplication Name"
-    app_name = "${var.name}-${var.environment}"
+  description = "Aplication Name"
+  app_name    = "${var.name}-${var.environment}"
 }
 
 variable "region" {
-    default = "us-east-1"
+  default = "us-east-1"
 }
 
 variable "lambda_name" {
-    description = "Name for lambda function"
-    default = "lambda"
+  description = "Name for lambda function"
+  default     = "lambda"
 }
 variable "name" {
   description = "This is the human-readable name of the queue. If omitted, Terraform will assign a random name."
@@ -89,7 +89,7 @@ variable "alarm_sns_topic_arn" {
 
 variable "allowed_arns" {
   description = "A list of AWS account IDs allowed to access this resource"
-  type        = list
+  type        = list(any)
   default     = null
 }
 

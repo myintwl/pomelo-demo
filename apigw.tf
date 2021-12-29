@@ -4,9 +4,9 @@ resource "aws_api_gateway_rest_api" "apiGateway" {
 }
 
 resource "aws_api_gateway_resource" "form_score" {
-    rest_api_id = aws_api_gateway_rest_api.apiGateway.id
-    parent_id   = aws_api_gateway_rest_api.apiGateway.root_resource_id
-    path_part   = "form-score"
+  rest_api_id = aws_api_gateway_rest_api.apiGateway.id
+  parent_id   = aws_api_gateway_rest_api.apiGateway.root_resource_id
+  path_part   = "form-score"
 }
 
 resource "aws_api_gateway_request_validator" "validator_query" {
@@ -17,20 +17,20 @@ resource "aws_api_gateway_request_validator" "validator_query" {
 }
 
 resource "aws_api_gateway_method" "method_form_score" {
-    rest_api_id   = aws_api_gateway_rest_api.apiGateway.id
-    resource_id   = aws_api_gateway_resource.form_score.id
-    http_method   = "POST"
-    authorization = "NONE"
-    api_key_required = true
+  rest_api_id      = aws_api_gateway_rest_api.apiGateway.id
+  resource_id      = aws_api_gateway_resource.form_score.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
 
-    request_models       = {
-       "application/json" = aws_api_gateway_model.my_model.name
-        }
-    request_parameters = {
-      "method.request.path.proxy"        = false
-      "method.request.querystring.unity" = true
-      # example of validation: the above requires this in query string
-      # https://my-api/dev/form-score?unity=1
+  request_models = {
+    "application/json" = aws_api_gateway_model.my_model.name
+  }
+  request_parameters = {
+    "method.request.path.proxy"        = false
+    "method.request.querystring.unity" = true
+    # example of validation: the above requires this in query string
+    # https://my-api/dev/form-score?unity=1
   }
 
   request_validator_id = aws_api_gateway_request_validator.validator_query.id
@@ -53,7 +53,7 @@ resource "aws_api_gateway_model" "my_model" {
   "required" :["message"]
   }
   EOF
-  }
+}
 
 resource "aws_api_gateway_usage_plan" "myusageplan" {
   name = "my_usage_plan"
@@ -87,7 +87,7 @@ resource "aws_api_gateway_integration" "api" {
     "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
   }
 
- 
+
   # Request Template for passing Method, Body, QueryParameters and PathParams to SQS messages
   request_templates = {
     "application/json" = <<EOF
@@ -127,11 +127,11 @@ resource "aws_api_gateway_integration_response" "http200" {
   resource_id       = aws_api_gateway_resource.form_score.id
   http_method       = aws_api_gateway_method.method_form_score.http_method
   status_code       = aws_api_gateway_method_response.http200.status_code
-  selection_pattern = "^2[0-9][0-9]"                                       // regex pattern for any 200 message that comes back from SQS
+  selection_pattern = "^2[0-9][0-9]" // regex pattern for any 200 message that comes back from SQS
 
   depends_on = [
     aws_api_gateway_integration.api
-    ]
+  ]
 }
 
 resource "aws_api_gateway_deployment" "api" {
