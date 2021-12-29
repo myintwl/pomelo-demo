@@ -7,5 +7,5 @@
 ## Git clone
 
 ## Terraform workflow
-() terraform fmt
-() terrform validate
+* terraform fmt
+* terrform validate
