@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "queue" {
-  name                              = "${var.name}${var.fifo_queue == true ? ".fifo" : ""}"
+  name                              = "${var.appname}${var.fifo_queue == true ? ".fifo" : ""}"
   message_retention_seconds         = var.message_retention_seconds
   visibility_timeout_seconds        = var.visibility_timeout_seconds
   fifo_queue                        = var.fifo_queue
@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "queue" {
 }
 
 resource "aws_sqs_queue" "deadletter_queue" {
-  name                              = "${var.name}-dead-letter-queue${var.fifo_queue == true ? ".fifo" : ""}"
+  name                              = "${var.appname}-dead-letter-queue${var.fifo_queue == true ? ".fifo" : ""}"
   message_retention_seconds         = var.message_retention_seconds
   visibility_timeout_seconds        = var.visibility_timeout_seconds
   fifo_queue                        = var.fifo_queue
@@ -77,8 +77,8 @@ data "aws_iam_policy_document" "deadletter_queue" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "alarm" {
-  alarm_name          = "${aws_sqs_queue.queue.name}-flood-alarm"
-  alarm_description   = "The ${aws_sqs_queue.queue.name} main queue has a large number of queued items"
+  alarm_name          = "${aws_sqs_queue.queue.appname}-flood-alarm"
+  alarm_description   = "The ${aws_sqs_queue.queue.appname} main queue has a large number of queued items"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "ApproximateNumberOfMessagesVisible"
@@ -90,7 +90,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   alarm_actions       = [aws_sns_topic.alarm.arn]
   tags                = tomap(var.tags)
   dimensions = {
-    "QueueName" = aws_sqs_queue.queue.name
+    "QueueName" = aws_sqs_queue.queue.appname
   }
 }
 

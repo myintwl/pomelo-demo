@@ -3,7 +3,7 @@ variable "environment" {
     default     = "dev"
 }
 
-variable "name" {
+variable "appname" {
     description = "Application Name"
     type        = string
 }
