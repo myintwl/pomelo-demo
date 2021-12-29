@@ -77,8 +77,8 @@ data "aws_iam_policy_document" "deadletter_queue" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "alarm" {
-  alarm_name          = "${aws_sqs_queue.queue.appname}-flood-alarm"
-  alarm_description   = "The ${aws_sqs_queue.queue.appname} main queue has a large number of queued items"
+  alarm_name          = "${aws_sqs_queue.queue.name}-flood-alarm"
+  alarm_description   = "The ${aws_sqs_queue.queue.name} main queue has a large number of queued items"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "ApproximateNumberOfMessagesVisible"
@@ -90,7 +90,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   alarm_actions       = [aws_sns_topic.alarm.arn]
   tags                = tomap(var.tags)
   dimensions = {
-    "QueueName" = aws_sqs_queue.queue.appname
+    "QueueName" = aws_sqs_queue.queue.name
   }
 }
 
