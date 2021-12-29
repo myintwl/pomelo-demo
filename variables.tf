@@ -14,7 +14,7 @@ locals {
 }
 
 variable "region" {
-  default = "us-east-1"
+  default = "ap-southeast-1"
 }
 
 variable "lambda_name" {
