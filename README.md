@@ -8,6 +8,6 @@
 
 ## Terraform workflow
 
-### please run local test for terraform as following before pushing to git
+### please run and test terraform as following workflow command before pushing to git
 * terraform fmt
 * terrform validate
