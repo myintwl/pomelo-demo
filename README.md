@@ -21,7 +21,7 @@
 - terrform validate 
 
 ```
-root@MAX-Lenovo:/mnt/d/pomelo/pomelo-demo# terraform fmt
-root@MAX-Lenovo:/mnt/d/pomelo/pomelo-demo# terraform validate
+root@Lenovo:/mnt/d/pomelo/pomelo-demo# terraform fmt
+root@Lenovo:/mnt/d/pomelo/pomelo-demo# terraform validate
 Success! The configuration is valid.
 ```
